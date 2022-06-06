@@ -75,5 +75,4 @@ with torch.no_grad():
     acc = predicted.eq(y_test).sum() / float(y_test.shape[0])
     print(f'accuracy = {acc:.4f}')
 
-plt.plot()
 
