@@ -49,4 +49,4 @@ class LogisticRegression(nn.Module):
 model = LogisticRegression(n_features)
 # 2) loss and optimizer
 
-# 3) training loop!
+# 3) training loop!!
