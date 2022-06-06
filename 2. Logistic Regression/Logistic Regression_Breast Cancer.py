@@ -6,8 +6,7 @@
 ##   - update weights
 ##   - Set Grad to Zero
 
-from distutils.log import Log
-from turtle import forward
+from pickletools import optimize
 import torch
 import torch.nn as nn
 import numpy as np
@@ -48,5 +47,33 @@ class LogisticRegression(nn.Module):
 
 model = LogisticRegression(n_features)
 # 2) loss and optimizer
+learning_rate = 0.02
+criterian = nn.BCELoss()
+optimizer = torch.optim.SGD(model.parameters(),lr=learning_rate)
+epochs = 1000
 
 # 3) training loop!!
+for epoch in range(epochs):
+    # Prediction
+    predicted = model(X_train)
+
+    # loss
+    loss = criterian(predicted, y_train)
+    loss.backward()
+    # optimize
+    optimizer.step()
+
+    # grads to Zero
+    optimizer.zero_grad()
+
+    if (epoch+1) % 100 == 0:
+        print(f"epoch: {epoch-1} loss: {loss.item():.4f}")
+
+with torch.no_grad():
+    predicted = model(X_test)
+    predicted = predicted.round()
+    acc = predicted.eq(y_test).sum() / float(y_test.shape[0])
+    print(f'accuracy = {acc:.4f}')
+
+plt.plot()
+
