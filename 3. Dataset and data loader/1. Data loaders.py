@@ -4,7 +4,7 @@ from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import math
 
-class Winedataset(Dataset):
+class WineDataset(Dataset):
     def __init__(self):
         super().__init__()
 
